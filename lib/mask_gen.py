@@ -3,25 +3,25 @@ import numpy as np
 
 def create_depth_mask(image_path):
     """
-    Create a depth mask from the given image.
-    
+    Create a smooth depth map from a colorized image by converting the image
+    to grayscale and using pixel intensity to simulate depth.
+
     Args:
-    - image_path: str, path to the image file.
-    
+    - image_path: str, path to the input image.
+
     Returns:
-    - depth_map: np.ndarray, the generated depth map (grayscale mask).
+    - depth_map: np.ndarray, the generated depth map (grayscale).
     """
-    # Load the image
-    image = cv2.imread(image_path)
+    # Load the image (in color, we will convert to grayscale later)
+    img = cv2.imread(image_path)
 
-    # Convert the image to grayscale
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # Convert the color image to grayscale (brightness represents depth)
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Apply edge detection (Canny)
-    edges = cv2.Canny(gray_image, 100, 200)
+    # Apply Gaussian blur to smooth the image and create a smoother depth map
+    blurred_gray = cv2.GaussianBlur(gray_img, (5, 5), 0)
 
-    # Invert the edges and apply a Gaussian blur to simulate depth
-    depth_map = cv2.bitwise_not(edges)
-    depth_map = cv2.GaussianBlur(depth_map, (5, 5), 0)
-    
+    # Normalize the image to create a smooth transition in depth (0 to 255)
+    depth_map = cv2.normalize(blurred_gray, None, 0, 255, cv2.NORM_MINMAX)
+
     return depth_map
