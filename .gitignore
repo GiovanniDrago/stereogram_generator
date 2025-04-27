@@ -1,6 +1,7 @@
 # Ignore the working and output directories
 /working/
 /output/
+/input/
 
 # Ignore Python bytecode files
 __pycache__/
