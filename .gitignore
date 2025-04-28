@@ -1,0 +1,29 @@
+# Ignore the working and output directories
+/working/
+/output/
+/input/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment directories (commonly used with venv)
+venv/
+.env/
+
+# Ignore IDE/editor files (specific to some editors)
+.vscode/
+.idea/
+
+# Ignore system files (OS-specific)
+.DS_Store    # macOS
+Thumbs.db    # Windows
+
+# Ignore dependencies that are installed via pip (if using requirements.txt)
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore any temporary files created by editors or tools
+*~
+*.swp
